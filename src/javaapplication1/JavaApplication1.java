@@ -17,6 +17,7 @@ public class JavaApplication1 {
     public static void main(String[] args) {
         LinkedStack stackA = new LinkedStack();
         LinkedStack stackC = new LinkedStack();
+        LinkedStack stackCopy = new LinkedStack();
         Integer[] numbers = {1, 2, 3, 4};
         //push testing
         stackA.push('A');
@@ -28,8 +29,9 @@ public class JavaApplication1 {
         //is emtpy testing
         System.out.println("EMTPY : " + stackA.isEmpty());
         // to array testing
-        Object[] test;
-        test = stackA.toArray();
+        Object[] test=new Object[10];
+        stackA.toArray(test);
+        
         for (int i = 0; i < test.length; i++) {
             System.out.println("Array [" + i + "]: " + test[i]);
         }
@@ -55,13 +57,21 @@ public class JavaApplication1 {
 
         System.out.println("stack B HERE : " + stackB.size());
         System.out.println("stack B: " + stackB.toString());
+        
+        stackCopy.copy(stackB);
+        System.out.println("stack B EQUALS? : " + stackCopy.equals(stackB));
+        stackB.pop();
+        System.out.println("stack B EQUALS? : " + stackCopy.equals(stackB));
+        
+        
         stackB.clear();
         System.out.println("stack B contain <letter>: " + stackB.contain("letter"));
         System.out.println("stack A contain <letter>: " + stackA.contain("letter"));
         System.out.println("stack A contain <letter>: " + stackC.contain("letter"));
-        System.out.println("stack A and C equal: " + stackC.equal(stackA));
+        System.out.println("stack A and C equal: " + stackC.equals(stackA));
+        System.out.println("stack A and C equal: " + stackC.equals(stackA));
         stackC.reverse();
-        System.out.println("stack A and C equal: " + stackC.equal(stackA));
+        System.out.println("stack A and C equal: " + stackC.equals(stackA));
 
         System.out.println("stack A: " + stackA.toString());
         System.out.println("stack C: " + stackC.toString());

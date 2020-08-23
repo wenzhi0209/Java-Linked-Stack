@@ -16,7 +16,7 @@ public class LinkedStack<T> implements LinkedStackInterface<T> {
     private int size;
     private Node bottom;
 
-    LinkedStack() {
+    public LinkedStack() {
         top = null;
         size = 0;
         bottom = null;
@@ -71,15 +71,13 @@ public class LinkedStack<T> implements LinkedStackInterface<T> {
     public T pop() {
         if (size > 1) {
             T data = top.data;
-            Node temp = top.next;
-            top = temp;
+            top = top.next;
             size--;
             return data;
         } else if (size == 1) {
             T data = top.data;
-            Node temp = top.next;
-            top = temp;
-            bottom = temp;
+            top = top.next;
+            bottom = top;
             size--;
             return data;
         }
@@ -114,7 +112,7 @@ public class LinkedStack<T> implements LinkedStackInterface<T> {
     @Override
     public boolean contain(T anItem) {
         for (Node temp = top; temp != null; temp = temp.next) {
-            if (temp.data == anItem) {
+            if (temp.data.equals(anItem)) {
                 return true;
             }
         }
@@ -159,7 +157,7 @@ public class LinkedStack<T> implements LinkedStackInterface<T> {
     }
 
     @Override
-    public boolean equal(LinkedStackInterface secondStack) {
+    public boolean equals(LinkedStackInterface secondStack) {
         LinkedStack stackB = (LinkedStack) secondStack;
         Node tempA = this.top;
         Node tempB = stackB.top;
@@ -168,7 +166,8 @@ public class LinkedStack<T> implements LinkedStackInterface<T> {
             return false;
         }
         while (tempA != null) {
-            if (tempA.data != tempB.data) {
+            if (!tempA.data.equals(tempB.data)) {
+                
                 return false;
             }
             tempA = tempA.next;
@@ -201,28 +200,34 @@ public class LinkedStack<T> implements LinkedStackInterface<T> {
         return true;
     }
 
+    
+//    public T[] toArray() {
+//        T[] itemArr = (T[]) new Object[size];
+//        int i = 0;
+//        for (Node temp = top; temp != null; temp = temp.next) {
+//            itemArr[i] = temp.data;
+//            i++;
+//        }
+//        return itemArr;
+//    }
     @Override
-    public boolean reverse() {
-        LinkedStack reverseStack = new LinkedStack();
-        for (Node temp = top; temp != null; temp = temp.next) {
-            reverseStack.push(temp.data);
+    public boolean toArray(T[] array)
+    {
+        Node temp = top;
+        
+        for(int i = 0;i<array.length;i++) {
+            if(temp!=null)
+            {
+                array[i] = temp.data;
+                temp = temp.next;
+            }
+            else
+            {
+                array[i]=null;
+            }
         }
-        this.top = reverseStack.top;
-        this.bottom= reverseStack.bottom;
         return true;
     }
-
-    @Override
-    public T[] toArray() {
-        T[] itemArr = (T[]) new Object[size];
-        int i = 0;
-        for (Node temp = top; temp != null; temp = temp.next) {
-            itemArr[i] = temp.data;
-            i++;
-        }
-        return itemArr;
-    }
-
     @Override
     public String toString() {
         String str = "";
@@ -249,6 +254,16 @@ public class LinkedStack<T> implements LinkedStackInterface<T> {
             this.next = next;
         }
 
+    }
+    
+    // internal use
+     public void reverse() {
+        LinkedStack reverseStack = new LinkedStack();
+        for (Node temp = top; temp != null; temp = temp.next) {
+            reverseStack.push(temp.data);
+        }
+        this.top = reverseStack.top;
+        this.bottom= reverseStack.bottom;
     }
 
 }

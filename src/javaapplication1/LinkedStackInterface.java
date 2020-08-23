@@ -25,13 +25,14 @@ public interface LinkedStackInterface<T> {
     String posOfElement(T anItem);
     T elementAtPos(int position);
     boolean combine(LinkedStackInterface secondStack);
-    boolean equal(LinkedStackInterface secondStack);
+    boolean equals(LinkedStackInterface secondStack);
     boolean copy(LinkedStackInterface secondStack);
     boolean copyPart(LinkedStackInterface secondStack,int num);
-    boolean reverse();
-    
-    T[] toArray();
+    boolean toArray(T[] array);
     String toString();
+    
+    
+    
     
     
 }
